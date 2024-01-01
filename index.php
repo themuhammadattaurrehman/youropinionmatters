@@ -2,7 +2,7 @@
 <html lang="en">
 <?php include 'head.php' ?>
 
-
+<?php include 'valid_session.php' ?>
 <body>
 <?php include 'header.php' ?>
   <!-- ======= Header ======= -->
