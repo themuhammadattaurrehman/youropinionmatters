@@ -50,20 +50,20 @@ $conn->close();
                   echo '<input type="hidden" name="question_id[]" value="' . $row["id"] . '">';
           
                   // Calculate the sum of op1, op2, op3, and op4
-                  $sum = $row['op1_votes'] + $row['op2_votes'] + $row['op3_votes'] + $row['op4_votes'];
+                  $sum = $row['op1_votes'] + $row['op2_votes'];
           
                   // Display the sum
                   // echo '<p>Sum of Options: ' . $sum . '</p>';
           
                   // Loop through options and create radio buttons
-                  for ($j = 1; $j <= 4; $j++) {
+                  for ($j = 1; $j <= 2; $j++) {
                       $optionKey = 'op' . $j;
                       $optionsKey = 'op' . $j . '_votes';
                       if($sum!==0){
                       $percentage = ($row[$optionsKey] /$sum) * 100;
                     }
                       echo '<label>';
-                      echo '<input type="radio" name="option[' . $row["id"] . ']" value="' . $optionKey . '"> ' . $row[$optionKey] . '' . $percentage . '</label><br>';
+                      echo '<input type="radio" name="option[' . $row["id"] . ']" value="' . $optionKey . '"> ' . $row[$optionKey] . ' ' . $percentage . '%</label><br>';
                   }
           
                   echo '</div>';
