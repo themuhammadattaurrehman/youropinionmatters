@@ -12,6 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dob = $_POST["dob"];
     $reference = $_POST["reference"];
 
+    include 'connection.php';
+    $checkReferralCode = "SELECT COUNT(*) AS count FROM user WHERE referal = $referralCode";
+    $result = $conn->query($checkReferralCode);
+    $row = $result->fetch_assoc();
+    if ($row['count'] > 0) {
     // Validate password match
     if ($password != $cpassword) {
         $errorMessage = "Password and Confirm Password do not match.";
@@ -34,6 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Close the database connection
         $conn->close();
     }
+  } else {
+    $errorMessage = "Referral code does not exist!";
+}
+
 }
 ?>
 
