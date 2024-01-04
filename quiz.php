@@ -14,6 +14,101 @@ $conn->close();
 
 <?php include 'head.php' ?>
 <?php include 'valid_session.php' ?>
+<style>
+  .quiz-card {
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .quiz-card h1 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .quiz-card .pole {
+            margin-bottom: 10px;
+        }
+
+        .quiz-card label {
+            display: block;
+            border: 1px solid #c5c5c5;
+            padding: 3px 6px;
+            cursor: pointer;
+            position: relative;
+            min-height: 40px;
+            margin-right: 10px;
+        }
+
+        .quiz-card label input {
+            display: none;
+        }
+
+        .quiz-card label span {
+            width: 89%;
+            font-weight: normal;
+            color: #000;
+        }
+
+        .quiz-card label input + span::before {
+
+            position: absolute;
+            content: "";
+            right: 5px;
+            top: 4px;
+            width: 60px;
+            height: 30px;
+            border-radius: 20px;
+            background-color: #ccc;
+            transition: all 0.3s ease-in-out;
+
+        }
+
+        .quiz-card label input + span::after {
+
+            position: absolute;
+            content: "";
+            right: 7px;
+            top: 6px;
+            width: 26px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: #fff;
+            transform: translateX(-30px);
+            transition: all 0.3s ease-in-out;
+
+        }
+
+        .quiz-card label input:checked + span::before {
+            background-color: #72A0C1;
+        }
+
+        .quiz-card label input:checked + span::after {
+            transform: translateX(0px)
+        }
+
+        .quiz-card .pole {
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .quiz-card .pole-count {
+            display: none;
+        }
+
+        .quiz-card .result {
+            position: absolute;
+            background-color: #66FF66;
+            width: 0%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            transition: all 1s ease-in;
+        }
+</style>
 
 <body>
 
@@ -62,6 +157,19 @@ $conn->close();
                       if($sum!==0){
                       $percentage = ($row[$optionsKey] /$sum) * 100;
                     }
+                    echo "<div class=\"quiz-card p-4 m-4\">";
+                    echo "<h1>Select an option!</h1>";
+                    echo "<div class=\"pole d-flex align-items-center\">";
+                    echo "<label class=\"pole-back flex-fill\">";
+                    echo "<input type=\"radio\" name=\"quiz\">";
+                    echo "<span>I agree with the video!</span>";
+                    echo "<div class=\"result\"></div>";
+                    echo "</label>";
+                    echo "<div class=\"pole-count\">67%</div>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                    
                       echo '<label>';
                       echo '<input type="radio" name="option[' . $row["id"] . ']" value="' . $optionKey . '"> ' . $row[$optionKey] . ' ' . $percentage . '%</label><br>';
                   }

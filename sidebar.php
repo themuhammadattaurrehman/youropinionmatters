@@ -16,9 +16,9 @@
         <?php } ?>
         <?php if(isset($_SESSION["role"]) && $_SESSION["role"] == "user") { ?>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="quiz.php">
+                <a class="nav-link collapsed" href="video.php">
                     <i class="bi bi-person"></i>
-                    <span>Quiz</span>
+                    <span>Video</span>
                 </a>
             </li><!-- End Profile Page Nav -->
         <?php }

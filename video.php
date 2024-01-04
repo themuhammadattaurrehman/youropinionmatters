@@ -38,11 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include 'sidebar.php' ?>
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>Questions</h1>
+            <h1>Video</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                    <li class="breadcrumb-item active">Questions</li>
+                    <li class="breadcrumb-item active">Video</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
