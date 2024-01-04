@@ -1,56 +1,37 @@
 <?php
-// process_form.php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Retrieve form data
   $questionText = $_POST["question_text"];
   $option1 = $_POST["option1"];
   $option2 = $_POST["option2"];
-  $option3 = $_POST["option3"];
-  $option4 = $_POST["option4"];
   $quiz = $_POST["quiz"];
-
-  // Perform your database insert here using the retrieved data
-  // Make sure to use prepared statements to prevent SQL injection
-
-  // Example code:
   include 'connection.php';
-
-  $sql = "INSERT INTO question (question, op1, op2, op3, op4, quiz) 
-            VALUES ('$questionText', '$option1', '$option2', '$option3', '$option4', '$quiz')";
-
+  $sql = "INSERT INTO question (question, op1, op2, quiz) 
+            VALUES ('$questionText', '$option1', '$option2', '$quiz')";
   if ($conn->query($sql) === TRUE) {
     $successMessage = "Question and options inserted successfully.";
   } else {
     $errorMessage = "Error: " . $sql . "<br>" . $conn->error;
   }
-
   $conn->close();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <?php include 'head.php' ?>
 <?php include 'valid_session.php' ?>
-
 <body>
-
   <!-- ======= Header ======= -->
   <?php include 'header.php' ?>
   <!-- ======= Sidebar ======= -->
   <?php include 'sidebar.php' ?>
-
   <main id="main" class="main">
-
     <div class="pagetitle">
-      <h1>Profile</h1>
+      <h1>Questions</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Users</li>
-          <li class="breadcrumb-item active">Profile</li>
+          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+          <li class="breadcrumb-item active">Questions</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -61,14 +42,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="card-body">
               <h5 class="card-title">Insert Question</h5>
               <?php
-              // Display success or error message
               if (isset($successMessage)) {
                 echo '<div class="alert alert-success" style="color: green;">' . $successMessage . '</div>';
               } elseif (isset($errorMessage)) {
                 echo '<div class="alert alert-danger" style="color: red;">' . $errorMessage . '</div>';
               }
               ?>
-              <!-- Horizontal Form -->
               <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Question</label>
@@ -89,18 +68,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputPassword" class="col-sm-2 col-form-label">Option 3</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputPassword" name="option3">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputPassword" class="col-sm-2 col-form-label">Option 4</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputPassword" name="option4">
-                  </div>
-                </div>
-                <div class="row mb-3">
                   <label for="inputPassword" class="col-sm-2 col-form-label">Quiz No.</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" id="inputPassword" name="quiz">
@@ -108,22 +75,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="text-start">
                   <button type="submit" class="btn btn-primary">Submit</button>
-                  <!-- <button type="reset" class="btn btn-secondary">Reset</button> -->
                 </div>
               </form>
-
-
             </div>
           </div>
-
         </div>
       </div>
     </section>
   </main><!-- End #main -->
-
   <!-- ======= Footer ======= -->
   <?php include 'footer.php' ?>
-
 </body>
-
 </html>
