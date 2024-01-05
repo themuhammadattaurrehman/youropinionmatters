@@ -50,6 +50,7 @@ $conn->close();
             width: 89%;
             font-weight: normal;
             color: #000;
+            z-index: 10;
         }
 
         .quiz-card label input + span::before {
@@ -89,6 +90,12 @@ $conn->close();
             transform: translateX(0px)
         }
 
+        .quiz-card label span p {
+          position: relative;
+          z-index: 10;
+        }
+        
+
         .quiz-card .pole {
             font-weight: bold;
             flex: 1;
@@ -99,13 +106,14 @@ $conn->close();
         }
 
         .quiz-card .result {
+            content:"";
             position: absolute;
-            background-color: #66FF66;
+            background-color: #34cd34;
             width: 0%;
             height: 100%;
             top: 0;
             left: 0;
-            z-index: -1;
+            z-index: 1;
             transition: all 1s ease-in;
         }
 </style>
@@ -129,18 +137,25 @@ $conn->close();
         </ol>
       </nav>
     </div><!-- End Page Title -->
-    <section class="section">
+
+
+
+
+    
+
+
+     <section class="section">
       <div class="row">
         <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Insert Question</h5>
+              <h5 class="card-title">Questions</h5>
               <?php
              if ($result->num_rows > 0) {
               echo '<form method="post" action="vote_handler.php">';
               while ($row = $result->fetch_assoc()) {
                   echo '<div class="card mb-3">';
-                  echo '<div class="card-body">';
+                  echo '<div class="card-body quiz-card">';
                   echo '<h5 class="card-title">Question: ' . $row["question"] . '</h5>';
                   echo '<input type="hidden" name="question_id[]" value="' . $row["id"] . '">';
           
@@ -157,27 +172,24 @@ $conn->close();
                       if($sum!==0){
                       $percentage = ($row[$optionsKey] /$sum) * 100;
                     }
-                    echo "<div class=\"quiz-card p-4 m-4\">";
-                    echo "<h1>Select an option!</h1>";
-                    echo "<div class=\"pole d-flex align-items-center\">";
-                    echo "<label class=\"pole-back flex-fill\">";
-                    echo "<input type=\"radio\" name=\"quiz\">";
-                    echo "<span>I agree with the video!</span>";
-                    echo "<div class=\"result\"></div>";
-                    echo "</label>";
-                    echo "<div class=\"pole-count\">67%</div>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
-                    
-                      echo '<label>';
-                      echo '<input type="radio" name="option[' . $row["id"] . ']" value="' . $optionKey . '"> ' . $row[$optionKey] . ' ' . $percentage . '%</label><br>';
+
+                    echo '<div class="pole d-flex align-items-center">';
+                    echo   '<label class="pole-back flex-fill">';
+                    echo    '<div class="result"></div>';
+                    echo    '<input type="radio" name="option[' . $row["id"] . ']" value="' . $optionKey . '">';
+                    echo    '<span> <p style="margin: 0;"> '. $row[$optionKey] .' </p> </span>';
+                    echo '</label>';
+                    echo '<div class="pole-count">';
+                    echo    round($percentage) . '%' ;
+                    echo '</div>';
+                    echo '</div>';
+                  
                   }
           
                   echo '</div>';
                   echo '</div>';
               }
-              echo '<input type="submit" value="Vote">';
+              echo '<input class="btn btn-primary" type="submit" value="Vote" style="margin-top: 10px;">';
               echo '</form>';
           } else {
               echo '<p>No questions available.</p>';
@@ -190,11 +202,32 @@ $conn->close();
 
         </div>
       </div>
-    </section>
+    </section> 
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <?php include 'footer.php' ?>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <script>
+        $(document).ready(function () {
+            $('input').change(function() {
+                if ($(this).is(':checked')) {
+                    // Your jQuery code to run when the radio button is checked
+                    $('.pole').each(function(){
+                        $('.pole-count').css('display', 'block');
+                        var result = $(this).find('.result');
+                        var width = $(this).find('.pole-count').html();
+
+                        result.width(width);
+
+                    });
+                }
+            });
+        });
+    </script>
 
 </body>
 

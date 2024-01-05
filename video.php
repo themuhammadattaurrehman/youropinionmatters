@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div><!-- End Page Title -->
 
         <div id="player"></div><br>
-        <button id="myButton" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" disabled>Next</button>
+        <button id="myButton" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#basicModal" disabled>Next</button>
         <!-- <div id="myModal" style="display: none;">
             <p>This is your modal content.</p>
             <button id="closeModalButton">Close Modal</button>
