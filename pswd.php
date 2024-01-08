@@ -58,7 +58,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <?php include 'header.php' ?>
     <?php include 'sidebar.php' ?>
-    <main>
+
+    <main id="main" class="main">
+
+         <div class="container">
+            
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="contact-form admin-form password-form">
+                <h2 class="mb-4">Change Password</h2>
+
+
+                <!-- Error Message -->
+                <?php if (!empty($errorMsg)) : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $errorMsg; ?>
+                    </div>
+                <?php endif; ?>
+                <?php if (!empty($successMsg)) : ?>
+                    <div class="alert alert-success" role="alert">
+                        <?php echo $successMsg; ?>
+                    </div>
+                <?php endif; ?>
+                
+
+                <div class="form-group">
+                <label for="oldPassword">Old Password</label>
+                <input type="password" class="form-control" id="opassword" name="opassword" required placeholder="Enter old password">
+                </div>
+
+                <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" class="form-control" id="npassword" name="npassword" required placeholder="Enter new password">
+                </div>
+
+                <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="cpassword" name="cpassword" required placeholder="Confirm new password">
+                </div>
+
+                <button type="submit" class="real-btn btn btn-primary btn-block">Confirm Password</button>
+                <div id="message" class="alert-msg"></div>
+
+            </form>
+        </div>
+
+    </main>
+
+
+
+
+    <!-- <main>
 
 
         <div class="container">
@@ -88,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="contact-form admin-form">
                                         <div class="row">
                                             <div class="col-xl-12 col-md-6 col-12">
-                                                <div class="form-group mb-16">
+                                                <div claxss="form-group mb-16">
                                                     <input type="password" class="form-control" id="opassword" name="opassword" required placeholder="Old Password">
                                                 </div>
                                             </div>
@@ -113,7 +161,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
         </div>
-    </main>
+    </main> -->
+
+
     <?php include 'footer.php' ?>
 </body>
 

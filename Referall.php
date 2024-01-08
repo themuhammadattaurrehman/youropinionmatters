@@ -18,6 +18,8 @@ $result = $conn->query($sql);
     <?php include 'header.php' ?>
     <!-- ======= Sidebar ======= -->
     <?php include 'sidebar.php' ?>
+
+
     <main id="main" class="main">
         <div class="pagetitle">
             <h1>Referal</h1>
@@ -27,8 +29,16 @@ $result = $conn->query($sql);
                     <li class="breadcrumb-item active">Referal</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
-        <div>
+        </div>
+
+         <div class="container">
+
+         <form class="contact-form admin-form password-form" action="">
+
+            <h2 class="mb-4">Referal</h2>    
+
+            
+
             <?php 
                 if ($result) {
                     // Check if there are rows returned
@@ -36,11 +46,17 @@ $result = $conn->query($sql);
                         // Fetch the row
                         $row = $result->fetch_assoc();
                         echo '<button class="btn btn-primary" onclick="generateReferralCode()" ' . (($row['referal']) ? 'disabled' : '') . '>Referal</button>';
-                        echo '<p id="referralCodeDisplay">'. $row["referal"] .'</p>';
+                        echo '<p id="referralCodeDisplay" style="margin-top: 20px; font-weight: bold; font-size: 14px; text-align:center">'. $row["referal"] .'</p>';
                     }
                 }
             ?>
+          
+
+        
+         </form>
+
         </div>
+
 
         <script>
             function generateReferralCode() {
@@ -61,7 +77,10 @@ $result = $conn->query($sql);
                 xhr.send("referralCode=" + referralCode);
             }
         </script>
-    </main><!-- End #main -->
+
+    </main>
+
+
     <!-- ======= Footer ======= -->
     <?php include 'footer.php' ?>
 </body>

@@ -231,3 +231,28 @@ table.datatable-table:focus {
 	outline: solid 1px black;
     outline-offset: -1px;
 }
+
+
+
+/*--------------------------------------------------------------
+# Change Password
+--------------------------------------------------------------*/
+.password-form {
+	max-width: 400px;
+	margin: 30px auto;
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #dee2e6;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+	margin-bottom: 20px;
+  }
+
+  .password-form label {
+	font-weight: bold;
+	font-size: 13px;
+  }
+  
