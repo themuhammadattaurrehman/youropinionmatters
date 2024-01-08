@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $reference = $_POST["reference"];
 
     include 'connection.php';
-    $checkReferralCode = "SELECT COUNT(*) AS count FROM user WHERE referal = $referralCode";
+    $checkReferralCode = "SELECT COUNT(*) AS count FROM user WHERE referal = '$reference'";
     $result = $conn->query($checkReferralCode);
     $row = $result->fetch_assoc();
     if ($row['count'] > 0) {

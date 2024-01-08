@@ -3,7 +3,7 @@
 include 'connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['question_id']) && is_array($_POST['question_id']) && isset($_POST['option'])) {
+    // if (isset($_POST['question_id']) && is_array($_POST['question_id']) && isset($_POST['option'])) {
         $question_ids = array_map('intval', $_POST['question_id']);
         $selected_options = array_map('htmlspecialchars', $_POST['option']);
         foreach ($question_ids as $question_id) {
@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo "Error updating vote for question ID $question_id: " . mysqli_error($conn) . "<br>";
             }
         }
-    } else {
-        echo "Invalid request. Required parameters not set or not in the expected format.";
-    }
+    // } else {
+    //     echo "Invalid request. Required parameters not set or not in the expected format.";
+    // }
 } else {
     echo "Invalid request method. Expected POST.";
 }

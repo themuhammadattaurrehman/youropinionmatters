@@ -137,13 +137,6 @@ $conn->close();
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
-
-
-
-    
-
-
      <section class="section">
       <div class="row">
         <div class="col-lg-6">
@@ -151,28 +144,22 @@ $conn->close();
             <div class="card-body">
               <h5 class="card-title">Questions</h5>
               <?php
+              $i=1;
              if ($result->num_rows > 0) {
               echo '<form method="post" action="vote_handler.php">';
               while ($row = $result->fetch_assoc()) {
                   echo '<div class="card mb-3">';
                   echo '<div class="card-body quiz-card">';
-                  echo '<h5 class="card-title">Question: ' . $row["question"] . '</h5>';
+                  echo '<h5 class="card-title">Question no.'.$i.': ' . $row["question"] . '</h5>';
                   echo '<input type="hidden" name="question_id[]" value="' . $row["id"] . '">';
-          
-                  // Calculate the sum of op1, op2, op3, and op4
                   $sum = $row['op1_votes'] + $row['op2_votes'];
-          
-                  // Display the sum
-                  // echo '<p>Sum of Options: ' . $sum . '</p>';
-          
-                  // Loop through options and create radio buttons
+                  $i++;
                   for ($j = 1; $j <= 2; $j++) {
                       $optionKey = 'op' . $j;
                       $optionsKey = 'op' . $j . '_votes';
                       if($sum!==0){
                       $percentage = ($row[$optionsKey] /$sum) * 100;
                     }
-
                     echo '<div class="pole d-flex align-items-center">';
                     echo   '<label class="pole-back flex-fill">';
                     echo    '<div class="result"></div>';
@@ -183,7 +170,7 @@ $conn->close();
                     echo    round($percentage) . '%' ;
                     echo '</div>';
                     echo '</div>';
-                  
+                    
                   }
           
                   echo '</div>';
