@@ -38,7 +38,7 @@ $result = $conn->query($sql);
               <h5 class="card-title">Referal</h5>
          <div class="container"> -->
 
-         <form class="contact-form admin-form password-form" action="">
+         <form class="contact-form admin-form password-form ref-form" action="">
 
             <h2 class="mb-4">Referal</h2>    
 

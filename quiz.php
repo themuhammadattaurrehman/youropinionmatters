@@ -8,7 +8,7 @@ $result = $conn->query($sql);
 
 $conn->close();
 ?>
-
+pull
 <!DOCTYPE html>
 <html lang="en">
 
