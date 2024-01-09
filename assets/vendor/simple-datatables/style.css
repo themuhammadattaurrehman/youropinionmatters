@@ -239,7 +239,7 @@ table.datatable-table:focus {
 --------------------------------------------------------------*/
 .password-form {
 	max-width: 400px;
-	margin: 30px auto;
+	margin: 30px ;
 	padding: 20px;
 	background-color: #fff;
 	border: 1px solid #dee2e6;

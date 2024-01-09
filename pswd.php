@@ -59,18 +59,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include 'header.php' ?>
     <?php include 'sidebar.php' ?>
 
-    <main id="main" class="main">
-    <div class="row">
+     <main id="main" class="main">
+    <!--<div class="row">
         <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Change Password</h5>
-         <div class="container">
+         <div class="container"> -->
 
          
             
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="contact-form admin-form password-form">
-                <!-- <h2 class="mb-4">Change Password</h2> -->
+                <h2 class="mb-4">Change Password</h2>
 
 
                 <!-- Error Message -->
@@ -105,13 +105,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div id="message" class="alert-msg"></div>
 
             </form>
-        </div>
+        <!-- </div>
         </div>
           </div>
 
         </div>
       </div>
-    </section>
+    </section> -->
     </main>
 
 

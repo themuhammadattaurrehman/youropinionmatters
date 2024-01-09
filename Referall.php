@@ -30,17 +30,17 @@ $result = $conn->query($sql);
                 </ol>
             </nav>
         </div>
-        <section class="section">
+        <!-- <section class="section">
       <div class="row">
         <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Referal</h5>
-         <div class="container">
+         <div class="container"> -->
 
          <form class="contact-form admin-form password-form" action="">
 
-            <!-- <h2 class="mb-4">Referal</h2>     -->
+            <h2 class="mb-4">Referal</h2>    
 
             
 
@@ -60,14 +60,14 @@ $result = $conn->query($sql);
         
          </form>
 
-        </div>
+        <!-- </div>
 
         </div>
           </div>
 
         </div>
       </div>
-    </section> 
+    </section>  -->
         <script>
             function generateReferralCode() {
                 // Generate referral code
