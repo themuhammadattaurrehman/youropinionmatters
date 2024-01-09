@@ -60,11 +60,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include 'sidebar.php' ?>
 
     <main id="main" class="main">
-
+    <div class="row">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Change Password</h5>
          <div class="container">
+
+         
             
             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="contact-form admin-form password-form">
-                <h2 class="mb-4">Change Password</h2>
+                <!-- <h2 class="mb-4">Change Password</h2> -->
 
 
                 <!-- Error Message -->
@@ -80,27 +86,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php endif; ?>
                 
 
-                <div class="form-group">
+                <div class="form-group mt-1">
                 <label for="oldPassword">Old Password</label>
                 <input type="password" class="form-control" id="opassword" name="opassword" required placeholder="Enter old password">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mt-1">
                 <label for="newPassword">New Password</label>
                 <input type="password" class="form-control" id="npassword" name="npassword" required placeholder="Enter new password">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mt-1">
                 <label for="confirmPassword">Confirm Password</label>
                 <input type="password" class="form-control" id="cpassword" name="cpassword" required placeholder="Confirm new password">
                 </div>
 
-                <button type="submit" class="real-btn btn btn-primary btn-block">Confirm Password</button>
+                <button type="submit" class="real-btn btn btn-primary btn-block mt-3">Confirm Password</button>
                 <div id="message" class="alert-msg"></div>
 
             </form>
         </div>
+        </div>
+          </div>
 
+        </div>
+      </div>
+    </section>
     </main>
 
 
