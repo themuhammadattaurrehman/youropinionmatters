@@ -278,14 +278,42 @@ table.datatable-table:focus {
 	color: #fff;
 }
 
-<<<<<<< HEAD
-.review .thead-blue {
-	background: #012970;
-	color: #fff;
-=======
 .quizdisabled {
 	background-color: #e9e4e4;
 	pointer-events: none;
 	color: #999;
->>>>>>> d9eed63d028ffebec2089577428e7c9c086246aa
+}
+
+.blue-table {
+	overflow: hidden;
+}
+
+.blue-table .thead-blue th {
+	background: #012970;
+	color: #fff;
+}
+
+.blue-table td:last-child {
+	display: flex;
+	gap: 18px;
+	align-items: center;
+}
+
+.blue-table .bi {
+	cursor: pointer;
+	transition: all 0.1s ease;
+}
+
+.blue-table .bi:hover {
+	transform: scale(1.1);
+}
+
+.blue-table .bi-check-lg {
+	color: green;
+	font-size: 24px;
+}
+
+.blue-table .bi-trash {
+	color: red;
+	font-size: 19px;
 }

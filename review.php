@@ -35,7 +35,7 @@ $result = $conn->query($sql);
             <div class="row">
 
                 <div class="col-md-12">
-                <table class="table">
+                <table class="table blue-table shadow rounded">
                     <thead class="thead-blue">
                         <tr>
                         <th scope="col">#</th>
@@ -47,17 +47,36 @@ $result = $conn->query($sql);
                     </thead>
                     <tbody>
                         <tr>
-                        <th scope="row">1</th>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>07-Jan-2024</td>
-                        <td>Rs. 340/-</td>
-                        <td>
-                            <i></i>
-                            <i></i>
-                        </td>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>07-Jan-2024</td>
+                            <td>Rs. 340/-</td>
+                            <td>
+                                <i class="bi bi-check-lg"></i>
+                                <i class="bi bi-trash"></i>
+                            </td>
                         </tr>
+
                         <tr>
+                            <th scope="row">2</th>
+                            <td>John</td>
+                            <td>13-Jan-2024</td>
+                            <td>Rs. 1245/-</td>
+                            <td>
+                                <i class="bi bi-check-lg"></i>
+                                <i class="bi bi-trash"></i>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Steve</td>
+                            <td>12-Jan-2024</td>
+                            <td>Rs. 730/-</td>
+                            <td>
+                                <i class="bi bi-check-lg"></i>
+                                <i class="bi bi-trash"></i>
+                            </td>
                         </tr>
                     </tbody>
                     </table>
