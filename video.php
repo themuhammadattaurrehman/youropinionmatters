@@ -1,11 +1,13 @@
 <?php
 // session_start();
 include 'valid_session.php';
-
+$sad=$_GET['quiz'];
+// echo $sad;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Assuming the data is sent as POST
     $phoneNumber = $_POST['phoneNumber'];
     $id = $_SESSION['id'];
+    $sad=$_POST['quiz'];
     // Validate and process the data as needed
 
     // Valid phone number, you can proceed with updating the database
@@ -16,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conn->query($sql) === TRUE) {
         // echo json_encode(['status' => 'success', 'message' => 'Phone number updated successfully.']);
-        header("Location: quiz.php");
+        header("Location: quiz.php?quiz=$sad");
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Error updating phone number: ' . $conn->error]);
     }
@@ -69,6 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label for="inputText">Text:</label>
                             <input type="text" class="form-control" id="inputText" placeholder="Enter text">
                         </div> -->
+                        <input type="hidden" name="quiz" value="<?php echo $sad; ?>" />
                             <div class="form-group">
                                 <label for="inputNumber">Number:</label>
                                 <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="03xx-xxxxxxx" oninput="checkPhoneNumber()">
@@ -80,7 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
         </div>
-        </div><!-- End Basic Modal-->
+        </div>
+        <!-- End Basic Modal-->
 
         <!-- The Overlay Background -->
         <div id="overlay" style="display: none;"></div>
