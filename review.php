@@ -42,26 +42,22 @@ $result = $conn->query($sql);
                         <th scope="col">Name</th>
                         <th scope="col">Date</th>
                         <th scope="col">Amount</th>
+                        <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                         <th scope="row">1</th>
+                        <td>1</td>
                         <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>07-Jan-2024</td>
+                        <td>Rs. 340/-</td>
+                        <td>
+                            <i></i>
+                            <i></i>
+                        </td>
                         </tr>
                         <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        </tr>
-                        <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
                         </tr>
                     </tbody>
                     </table>
