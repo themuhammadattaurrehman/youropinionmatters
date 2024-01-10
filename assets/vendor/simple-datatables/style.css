@@ -276,3 +276,8 @@ table.datatable-table:focus {
 	background-color: #012970;
 	color: #fff;
 }
+
+.review .thead-blue {
+	background: #012970;
+	color: #fff;
+}
