@@ -1,14 +1,13 @@
 <?php
 // display_questions.php
 include 'connection.php';
-
+$sad=$_GET['quiz'];
 // Retrieve questions from the database
 $sql = "SELECT *  FROM question where quiz=1";
 $result = $conn->query($sql);
 
 $conn->close();
 ?>
-pull
 <!DOCTYPE html>
 <html lang="en">
 
@@ -147,6 +146,7 @@ pull
               $i=1;
              if ($result->num_rows > 0) {
               echo '<form method="post" action="vote_handler.php">';
+              echo '<input type="hidden" name="quiz" value="' . $sad . '" />';
               while ($row = $result->fetch_assoc()) {
                   echo '<div class="card mb-3">';
                   echo '<div class="card-body quiz-card">';

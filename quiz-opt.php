@@ -1,11 +1,12 @@
-<?php 
+<?php
 include 'connection.php';
 include 'valid_session.php';
-$sql = "SELECT referal FROM user WHERE id=".$_SESSION['id'];
+// echo $_SESSION['id'];
+$sql = "SELECT `1`,`2`,`3`,`4`,`5` FROM user WHERE id=" . $_SESSION['id'];
 
 // Execute the query
 $result = $conn->query($sql);
-
+// echo $result
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +31,10 @@ $result = $conn->query($sql);
                 </ol>
             </nav>
         </div>
-
+        <?php
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+?>
         <div class="quiz-opt">
             <div class="row">
 
@@ -38,43 +42,63 @@ $result = $conn->query($sql);
                     <h2 class="mb-4">Please select any quiz. </h2>
                 </div>
 
+                <?php
+                // echo "Value from Database for Quiz 1: " . $row['1'];
+                ?>
                 <div class="col">
-                    <a href="#" class="card info-card sales-card quiz-opt-card">
+                    <a href="video.php?quiz=1" class="card info-card sales-card quiz-opt-card <?php echo ($row['1'] == 1) ? 'quizdisabled' : ''; ?>">
                         <span>Quiz 1</span>
                     </a>
                 </div>
 
+                <?php
+                // echo "Value from Database for Quiz 2: " . $row['2'];
+                ?>
                 <div class="col">
-                    <a href="#" class="card info-card sales-card quiz-opt-card">
+                    <a href="video.php?quiz=2" class="card info-card sales-card quiz-opt-card <?php echo ($row['2'] == 1) ? 'quizdisabled' : ''; ?>">
                         <span>Quiz 2</span>
                     </a>
                 </div>
 
+                <?php
+                // echo "Value from Database for Quiz 3: " . $row['3'];
+                ?>
                 <div class="col">
-                    <a href="#" class="card info-card sales-card quiz-opt-card">
+                    <a href="video.php?quiz=3" class="card info-card sales-card quiz-opt-card <?php echo ($row['3'] == 1) ? 'quizdisabled' : ''; ?>">
                         <span>Quiz 3</span>
                     </a>
                 </div>
 
+                <?php
+                // echo "Value from Database for Quiz 4: " . $row['4'];
+                ?>
                 <div class="col">
-                    <a href="#" class="card info-card sales-card quiz-opt-card">
+                    <a href="video.php?quiz=4" class="card info-card sales-card quiz-opt-card <?php echo ($row['4'] == 1) ? 'quizdisabled' : ''; ?>">
                         <span>Quiz 4</span>
                     </a>
                 </div>
 
+                <?php
+                // echo "Value from Database for Quiz 5: " . $row['5'];
+                ?>
                 <div class="col">
-                    <a href="#" class="card info-card sales-card quiz-opt-card">
+                    <a href="video.php?quiz=5" class="card info-card sales-card quiz-opt-card <?php echo ($row['5'] == 1) ? 'quizdisabled' : ''; ?>">
                         <span>Quiz 5</span>
                     </a>
                 </div>
 
             </div>
         </div>
+<?php
+    }
+}
+?>
 
-         
 
-      
-        <script>
+
+
+
+        <!-- <script>
             function generateReferralCode() {
                 // Generate referral code
                 var referralCode = Math.floor(10000000 + Math.random() * 90000000);
@@ -92,7 +116,7 @@ $result = $conn->query($sql);
                 };
                 xhr.send("referralCode=" + referralCode);
             }
-        </script>
+        </script> -->
 
     </main>
 

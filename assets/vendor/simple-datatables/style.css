@@ -270,9 +270,16 @@ table.datatable-table:focus {
 	font-size: 28px;
     color: #012970;
     font-weight: 700;
+	width:100%;
 }
 
 .quiz-opt-card:hover {
 	background-color: #012970;
 	color: #fff;
+}
+
+.quizdisabled {
+	background-color: #e9e4e4;
+	pointer-events: none;
+	color: #999;
 }

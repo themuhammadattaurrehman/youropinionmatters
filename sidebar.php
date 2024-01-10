@@ -7,6 +7,12 @@
 
   <li class="nav-heading">Pages</li>
   <?php if(isset($_SESSION["role"]) && $_SESSION["role"] == "admin") { ?>
+    <li class="nav-item">
+                <a class="nav-link collapsed" href="index.php">
+                    <i class="bi bi-person"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="add.php">
                     <i class="bi bi-person"></i>
@@ -16,9 +22,15 @@
         <?php } ?>
         <?php if(isset($_SESSION["role"]) && $_SESSION["role"] == "user") { ?>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="video.php">
+                <a class="nav-link collapsed" href="index.php">
                     <i class="bi bi-person"></i>
-                    <span>Video</span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="quiz-opt.php">
+                    <i class="bi bi-person"></i>
+                    <span>Front Page</span>
                 </a>
             </li><!-- End Profile Page Nav -->
         <?php }
