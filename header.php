@@ -190,7 +190,7 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
+            <?php if(isset($_SESSION["role"]) && $_SESSION["role"] == "user") { ?>
             <li>
               <a class="dropdown-item d-flex align-items-center" href="Referall.php">
                 <i class="bi bi-gear"></i>
@@ -210,7 +210,9 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
+            <?php }
+        // ob_end_flush();
+        ?>
             <li>
               <a class="dropdown-item d-flex align-items-center" href="logout.php">
                 <i class="bi bi-box-arrow-right"></i>

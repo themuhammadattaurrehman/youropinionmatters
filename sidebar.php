@@ -44,7 +44,13 @@
                     <i class="bi bi-person"></i>
                     <span>Front Page</span>
                 </a>
-            </li><!-- End Profile Page Nav -->
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="amounts.php">
+                    <i class="bi bi-person"></i>
+                    <span>Amount Earn</span>
+                </a>
+            </li>
         <?php }
         // ob_end_flush();
         ?>

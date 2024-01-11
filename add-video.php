@@ -1,24 +1,24 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $questionText = $_POST["url"];
-    $quiz = $_POST["quiz"];
+  $questionText = $_POST["url"];
+  $quiz = $_POST["quiz"];
 
-    include 'connection.php';
+  include 'connection.php';
 
-    // Validate and sanitize user input
-    $questionText = mysqli_real_escape_string($conn, $questionText);
-    $quiz = mysqli_real_escape_string($conn, $quiz);
+ 
+  $questionText = mysqli_real_escape_string($conn, $questionText);
+  $quiz = mysqli_real_escape_string($conn, $quiz);
 
-    // Construct and execute the update query
-    $sql = "UPDATE video SET `link` = '$questionText' WHERE `quiz` = '$quiz'";
+ 
+  $sql = "UPDATE video SET `link` = '$questionText' WHERE `quiz` = '$quiz'";
 
-    if ($conn->query($sql) === TRUE) {
-        $successMessage = "Updated successfully.";
-    } else {
-        $errorMessage = "Error: " . $sql . "<br>" . $conn->error;
-    }
+  if ($conn->query($sql) === TRUE) {
+    $successMessage = "Updated successfully.";
+  } else {
+    $errorMessage = "Error: " . $sql . "<br>" . $conn->error;
+  }
 
-    $conn->close();
+  $conn->close();
 }
 
 
@@ -27,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <?php include 'head.php' ?>
 <?php include 'valid_session.php' ?>
+
 <body>
   <!-- ======= Header ======= -->
   <?php include 'header.php' ?>
@@ -62,11 +63,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="text" class="form-control" id="url" name="url">
                   </div>
                 </div>
-
                 <div class="row mb-3">
                   <label for="quiz" class="col-sm-2 col-form-label">Quiz:</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="quiz" name="quiz">
+                    <select class="form-select" id="quiz" name="quiz">
+                    <option >Select Any</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
                   </div>
                 </div>
 
@@ -79,8 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
       </div>
     </section>
-  </main><!-- End #main -->
-  <!-- ======= Footer ======= -->
+  </main>
   <?php include 'footer.php' ?>
 </body>
 
