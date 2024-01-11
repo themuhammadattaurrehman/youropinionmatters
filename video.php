@@ -1,18 +1,15 @@
 <?php
 // session_start();
+include 'connection.php';
 include 'valid_session.php';
-$sad=$_GET['quiz'];
+$sad = $_GET['quiz'];
 // echo $sad;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Assuming the data is sent as POST
     $phoneNumber = $_POST['phoneNumber'];
     $id = $_SESSION['id'];
-    $sad=$_POST['quiz'];
+    $sad = $_POST['quiz'];
     // Validate and process the data as needed
-
-    // Valid phone number, you can proceed with updating the database
-
-    include 'connection.php';
     // Update the table
     $sql = "UPDATE user SET e_no = '$phoneNumber' WHERE id = $id";
 
@@ -25,6 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn->close();
 }
+$sql = "SELECT *  FROM video where quiz=$sad";
+$result = $conn->query($sql);
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Input For Easypaisa Number</h5>
+                        <h5 class="modal-title">Enter Easypaisa Number</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -71,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label for="inputText">Text:</label>
                             <input type="text" class="form-control" id="inputText" placeholder="Enter text">
                         </div> -->
-                        <input type="hidden" name="quiz" value="<?php echo $sad; ?>" />
+                            <input type="hidden" name="quiz" value="<?php echo $sad; ?>" />
                             <div class="form-group">
                                 <label for="inputNumber">Number:</label>
                                 <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="03xx-xxxxxxx" oninput="checkPhoneNumber()">
@@ -98,13 +99,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             var player;
 
             function onYouTubeIframeAPIReady() {
+
+                var videoIds = [];
+                <?php
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "videoIds.push('" . $row['link'] . "');";
+                    }
+                } else {
+
+                    echo 'console.error("No videos available.");';
+                }
+                ?>
                 player = new YT.Player('player', {
                     height: '340',
                     width: '520',
-                    videoId: 'jnSjvOKV-NQ',
+                    videoId: videoIds[0],
                     playerVars: {
-                        controls: 0, // Disable controls
-                        disablekb: 1 // Disable keyboard controls
+                        controls: 0,
+                        disablekb: 1
                     },
                     events: {
                         'onReady': onPlayerReady,

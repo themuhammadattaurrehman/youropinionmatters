@@ -3,7 +3,7 @@
 include 'connection.php';
 $sad=$_GET['quiz'];
 // Retrieve questions from the database
-$sql = "SELECT *  FROM question where quiz=1";
+$sql = "SELECT *  FROM question where quiz=$sad";
 $result = $conn->query($sql);
 
 $conn->close();

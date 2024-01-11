@@ -1,20 +1,27 @@
 <?php
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $questionText = $_POST["question_text"];
-  $option1 = $_POST["option1"];
-  $option2 = $_POST["option2"];
-  $quiz = $_POST["quiz"];
-  include 'connection.php';
-  $sql = "INSERT INTO question (question, op1, op2, quiz) 
-            VALUES ('$questionText', '$option1', '$option2', '$quiz')";
-  if ($conn->query($sql) === TRUE) {
-    $successMessage = "Question and options inserted successfully.";
-  } else {
-    $errorMessage = "Error: " . $sql . "<br>" . $conn->error;
-  }
-  $conn->close();
+    $questionText = $_POST["url"];
+    $quiz = $_POST["quiz"];
+
+    include 'connection.php';
+
+    // Validate and sanitize user input
+    $questionText = mysqli_real_escape_string($conn, $questionText);
+    $quiz = mysqli_real_escape_string($conn, $quiz);
+
+    // Construct and execute the update query
+    $sql = "UPDATE video SET `link` = '$questionText' WHERE `quiz` = '$quiz'";
+
+    if ($conn->query($sql) === TRUE) {
+        $successMessage = "Updated successfully.";
+    } else {
+        $errorMessage = "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,11 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               }
               ?>
               <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-
-                
-
                 <div class="row mb-3">
-                  <label for="url" class="col-sm-2 col-form-label">Video URL:</label>
+                  <label for="url" class="col-sm-2 col-form-label">Link:</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control" id="url" name="url">
                   </div>
@@ -69,7 +73,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="text-start">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-
               </form>
             </div>
           </div>
@@ -80,4 +83,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- ======= Footer ======= -->
   <?php include 'footer.php' ?>
 </body>
+
 </html>

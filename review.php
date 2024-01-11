@@ -1,24 +1,30 @@
-<?php 
-include 'connection.php';
-include 'valid_session.php';
-$sql = "SELECT referal FROM user WHERE id=".$_SESSION['id'];
-
-// Execute the query
-$result = $conn->query($sql);
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
+<?php
+include 'connection.php';
+include 'valid_session.php';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = $_POST["id"];
+    $approval = $_POST["approval"];
+    include 'connection.php';
+    $questionText = mysqli_real_escape_string($conn, $questionText);
+    $quiz = mysqli_real_escape_string($conn, $quiz);
+    $sql = "UPDATE user SET `approval` = '$approval' WHERE `id` = '$id'";
 
-<?php include 'head.php' ?>
+    if ($conn->query($sql) === TRUE) {
+        $successMessage = "Updated successfully.";
+    } else {
+        $errorMessage = "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+include 'head.php';
+?>
 
 <body>
-    <!-- ======= Header ======= -->
     <?php include 'header.php' ?>
-    <!-- ======= Sidebar ======= -->
     <?php include 'sidebar.php' ?>
-
 
     <main id="main" class="main">
         <div class="pagetitle">
@@ -30,86 +36,69 @@ $result = $conn->query($sql);
                 </ol>
             </nav>
         </div>
-
         <div class="review">
             <div class="row">
-
                 <div class="col-md-12">
-                <table class="table blue-table shadow rounded">
-                    <thead class="thead-blue">
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>07-Jan-2024</td>
-                            <td>Rs. 340/-</td>
-                            <td>
-                                <i class="bi bi-check-lg"></i>
-                                <i class="bi bi-trash"></i>
-                            </td>
-                        </tr>
+                    <table class="table blue-table shadow rounded">
+                        <thead class="thead-blue">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $sql1 = "SELECT * FROM user WHERE `1` = 1";
+                            $sql2 = "SELECT * FROM user WHERE `2` = 1";
+                            $sql3 = "SELECT * FROM user WHERE `3` = 1";
+                            $sql4 = "SELECT * FROM user WHERE `4` = 1";
+                            $sql5 = "SELECT * FROM user WHERE `5` = 1";
+                            $i = 1;
+                            $result1 = $conn->query($sql1);
+                            $result2 = $conn->query($sql2);
+                            $result3 = $conn->query($sql3);
+                            $result4 = $conn->query($sql4);
+                            $result5 = $conn->query($sql5);
+                            if (!$result1 || !$result2 || !$result3 || !$result4 || !$result5) {
+                                die("Query failed: " . $conn->error);
+                            }
+                            displayResults($result1, "approval1");
+                            displayResults($result2, "approval2");
+                            displayResults($result3, "approval3");
+                            displayResults($result4, "approval4");
+                            displayResults($result5, "approval5");
+                            $conn->close();
 
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>John</td>
-                            <td>13-Jan-2024</td>
-                            <td>Rs. 1245/-</td>
-                            <td>
-                                <i class="bi bi-check-lg"></i>
-                                <i class="bi bi-trash"></i>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Steve</td>
-                            <td>12-Jan-2024</td>
-                            <td>Rs. 730/-</td>
-                            <td>
-                                <i class="bi bi-check-lg"></i>
-                                <i class="bi bi-trash"></i>
-                            </td>
-                        </tr>
-                    </tbody>
+                            function displayResults($result, $header)
+                            {
+                                global $i;
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<tr>";
+                                        echo "<td>" . $i++ . "</td>";
+                                        echo "<td>" . $row['user_name'] . "</td>";
+                                        echo "<td>" . $row['e_no'] . "</td>";
+                                        echo "<td>15</td>";
+                                        echo "<td>";
+                                        echo "<input type='hidden' name='id' value='" . $row['id'] . "'>";
+                                        echo "<input type='hidden' name='approval' value='" . $header . "'>";
+                                        echo "<i class='bi bi-check-lg'></i>";
+                                        echo "<i class='bi bi-trash'></i>";
+                                        echo "</td>";
+                                        echo "</tr>";
+                                    }
+                                }
+                            }
+                            ?>
+                        </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
-
-         
-
-      
-        <script>
-            function generateReferralCode() {
-                // Generate referral code
-                var referralCode = Math.floor(10000000 + Math.random() * 90000000);
-
-                // Send AJAX request to update the referral code in the database
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "updateReferralCode.php", true);
-                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        console.log(xhr.responseText); // Output from the server
-                        // Display the referral code on the page
-                        document.getElementById("referralCodeDisplay").innerHTML = "Referral Code: " + referralCode;
-                    }
-                };
-                xhr.send("referralCode=" + referralCode);
-            }
-        </script>
-
     </main>
-
 
     <!-- ======= Footer ======= -->
     <?php include 'footer.php' ?>
