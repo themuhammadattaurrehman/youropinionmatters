@@ -69,11 +69,11 @@ include 'head.php';
                         </thead>
                         <tbody>
                             <?php
-                            $sql1 = "SELECT * FROM user WHERE `1` = 1 AND `approval1`=0";
-                            $sql2 = "SELECT * FROM user WHERE `2` = 1 AND `approval2`=0";
-                            $sql3 = "SELECT * FROM user WHERE `3` = 1 AND `approval3`=0";
-                            $sql4 = "SELECT * FROM user WHERE `4` = 1 AND `approval4`=0";
-                            $sql5 = "SELECT * FROM user WHERE `5` = 1 AND `approval5`=0";
+                            $sql1 = "SELECT * FROM user WHERE `1` = 1 AND `approval1`=1";
+                            $sql2 = "SELECT * FROM user WHERE `2` = 1 AND `approval2`=1";
+                            $sql3 = "SELECT * FROM user WHERE `3` = 1 AND `approval3`=1";
+                            $sql4 = "SELECT * FROM user WHERE `4` = 1 AND `approval4`=1";
+                            $sql5 = "SELECT * FROM user WHERE `5` = 1 AND `approval5`=1";
                             $i = 1;
                             $result1 = $conn->query($sql1);
                             $result2 = $conn->query($sql2);
@@ -105,7 +105,7 @@ include 'head.php';
                                         echo "<input type='hidden' name='user_id' value='" . $row['id'] . "'>";
                                         echo "<input type='hidden' name='approval' value='" . $header . "'>";
                                         echo "<input type='hidden' name='other' value='" . $others . "'>";
-                                        echo "<button style='border:none' type='submit' name='approve' value='1'><i class='bi bi-box-arrow-up-right'></i></button>";
+                                        echo "Sends on ".$row['e_no']."</td>";
                                         // echo "<button style='border:none' type='submit' name='delete' value='1'><i class='bi bi-trash'></i></button>";
                                         echo "</form>";
                                         echo "</td>";
