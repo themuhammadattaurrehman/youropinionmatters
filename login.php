@@ -144,6 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Don't have account? <a href="signup.php">Create an account</a></p>
+                      <p class="small mb-0">Forget Password? <a href="forget.php">Click here</a></p>
                     </div>
                   </form>
 

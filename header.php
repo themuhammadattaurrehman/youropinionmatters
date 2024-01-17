@@ -180,13 +180,26 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
+            <?php if(isset($_SESSION["role"]) && $_SESSION["role"] == "admin") { ?>
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="admin-profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
             </li>
+            <?php }
+        // ob_end_flush();
+        ?>
+          <?php if(isset($_SESSION["role"]) && $_SESSION["role"] == "user") { ?>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="user-profile.php">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <?php }
+        // ob_end_flush();
+        ?>
             <li>
               <hr class="dropdown-divider">
             </li>

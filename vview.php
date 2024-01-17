@@ -54,11 +54,11 @@ include 'head.php';
 
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>Approval</h1>
+            <h1>Video</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                    <li class="breadcrumb-item active">Approval</li>
+                    <li class="breadcrumb-item active">Video</li>
                 </ol>
             </nav>
         </div>
@@ -75,61 +75,70 @@ include 'head.php';
                     <table class="table blue-table shadow rounded">
                         <thead class="thead-blue">
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">For</th>
-                                <th scope="col">Easypaisa</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col">Link</th>
+                                <th scope="col">Quiz</th>
+                                <!-- <th scope="col">Option 2</th>
+                                <th scope="col">Quiz no</th> -->
+                                <!-- <th scope="col">Amount</th>
+                                <th scope="col">Actions</th> -->
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            $sql1 = "SELECT * FROM user WHERE `1` = 1 AND `approval1`=0";
-                            $sql2 = "SELECT * FROM user WHERE `2` = 1 AND `approval2`=0";
-                            $sql3 = "SELECT * FROM user WHERE `3` = 1 AND `approval3`=0";
-                            $sql4 = "SELECT * FROM user WHERE `4` = 1 AND `approval4`=0";
-                            $sql5 = "SELECT * FROM user WHERE `5` = 1 AND `approval5`=0";
-                            $i = 1;
-                            $result1 = $conn->query($sql1);
-                            $result2 = $conn->query($sql2);
-                            $result3 = $conn->query($sql3);
-                            $result4 = $conn->query($sql4);
-                            $result5 = $conn->query($sql5);
-                            if (!$result1 || !$result2 || !$result3 || !$result4 || !$result5) {
-                                die("Query failed: " . $conn->error);
-                            }
-                            displayResults($result1, "approval1","1");
-                            displayResults($result2, "approval2","2");
-                            displayResults($result3, "approval3","3");
-                            displayResults($result4, "approval4","4");
-                            displayResults($result5, "approval5","5");
-                            $conn->close();
-                            function displayResults($result, $header,$others)
-                            {
-                                global $i;
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        echo "<tr>";
-                                        echo "<td>" . $i++ . "</td>";
-                                        echo "<td>" . $row['user_name'] . "</td>";
-                                        echo "<td>quiz " . $others . "</td>";
-                                        echo "<td>" . $row['e_no'] . "</td>";
-                                        echo "<td>15</td>";
-                                        echo "<td>";
-                                        echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>";
-                                        echo "<input type='hidden' name='user_id' value='" . $row['id'] . "'>";
-                                        echo "<input type='hidden' name='approval' value='" . $header . "'>";
-                                        echo "<input type='hidden' name='other' value='" . $others . "'>";
-                                        echo "<button style='border:none' type='submit' name='approve' value='1'><i class='bi bi-check-lg'></i></button>";
-                                        echo "<button style='border:none' type='submit' name='delete' value='1'><i class='bi bi-trash'></i></button>";
-                                        echo "</form>";
-                                        echo "</td>";
-                                        echo "</tr>";
-                                    }
-                                }
-                            }
-                            ?>
+                        <?php
+// Include your database connection
+include 'connection.php';
+
+// Query to fetch questions
+$questionsQuery = "SELECT * FROM video";
+$resultQuestions = $conn->query($questionsQuery);
+
+// Check if there are questions
+if ($resultQuestions->num_rows > 0) {
+    // echo "<table border='1'>";
+    // echo "<tr><th>Question</th><th>Options</th></tr>";
+
+    while ($rowQuestion = $resultQuestions->fetch_assoc()) {
+    //     $question_id = $rowQuestion['question_id'];
+    //     $question_text = $rowQuestion['question_text'];
+
+        echo "<tr>";
+        echo "<td>" .$rowQuestion['link']."</td>";
+
+        // Query to fetch options for each question
+        // $optionsQuery = "SELECT * FROM options WHERE question_id = '$question_id'";
+        // $resultOptions = $conn->query($optionsQuery);
+
+        // // Check if there are options
+        // if ($resultOptions->num_rows > 0) {
+            echo "<td>Quiz ";
+            // while ($rowOption = $resultOptions->fetch_assoc()) {
+                // $option_text = $rowOption['option_text'];
+                echo $rowQuestion['quiz'];
+            // }
+            echo "</td>";
+            // echo "<td>";
+            // // while ($rowOption = $resultOptions->fetch_assoc()) {
+            //     // $option_text = $rowOption['option_text'];
+            //     echo $rowQuestion['op2'];
+            // // }
+            // echo "</td>";
+            // echo "<td> Quiz " .$rowQuestion['quiz']."</td>";
+        // } else {
+        //     echo "<td>No options found</td>";
+        // }
+
+        echo "</tr>";
+    }
+
+    // echo "</table>";
+} else {
+    echo "<p>No questions found.</p>";
+}
+
+// Close the database connection
+$conn->close();
+?>
+
                         </tbody>
                     </table>
                 </div>

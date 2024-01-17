@@ -2,45 +2,60 @@
 $errorMessage = $successMessage = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $fname = $_POST["fname"];
+    $lname = $_POST["lname"];
+    $password = $_POST["password"];
+    $cpassword = $_POST["cpassword"];
+    $username = $_POST["username"];
+    $email = $_POST["email"];
+    $dob = $_POST["dob"];
+    $reference = $_POST["reference"];
 
-  $fname = $_POST["fname"];
-  $lname = $_POST["lname"];
-  $password = $_POST["password"];
-  $cpassword = $_POST["cpassword"];
-  $username = $_POST["username"];
-  $email = $_POST["email"];
-  $dob = $_POST["dob"];
-  $reference = $_POST["reference"];
+    // Check if email already exists
+    include 'connection.php';
+    $checkEmailQuery = "SELECT COUNT(*) AS count FROM user WHERE email = '$email'";
+    $resultEmail = $conn->query($checkEmailQuery);
+    $rowEmail = $resultEmail->fetch_assoc();
 
-  include 'connection.php';
-  $checkReferralCode = "SELECT COUNT(*) AS count FROM user WHERE referal = '$reference'";
-  $result = $conn->query($checkReferralCode);
-  $row = $result->fetch_assoc();
-  if ($row['count'] > 0) {
-
-    if ($password != $cpassword) {
-      $errorMessage = "Password and Confirm Password do not match.";
+    if ($rowEmail['count'] > 0) {
+        $errorMessage = "Email already exists. Please choose a different email.";
     } else {
+        // Check if referral code exists
+        $checkReferralCode = "SELECT COUNT(*) AS count FROM user WHERE referal = '$reference'";
+        $resultReferral = $conn->query($checkReferralCode);
+        $rowReferral = $resultReferral->fetch_assoc();
 
-      include 'connection.php';
+        if ($rowReferral['count'] > 0) {
+            // Check if passwords match
+            if ($password != $cpassword) {
+                $errorMessage = "Password and Confirm Password do not match.";
+            } else {
+                // Insert into the database
+                $sql = "INSERT INTO user (first_name, last_name, password, user_name, email, d_o_b, reference)
+                        VALUES ('$fname', '$lname', '$password', '$username', '$email', '$dob', '$reference')";
 
-      $sql = "INSERT INTO user (first_name, last_name, password, user_name, email, d_o_b, reference)
-                VALUES ('$fname', '$lname', '$password', '$username', '$email', '$dob', '$reference')";
+                if ($conn->query($sql) === TRUE) {
+                    // Send welcome email
+                    if (mail($email, "Welcome Message", "Hi, You are successfully signed up on uropinion matters")) {
+                        $successMessage = "Form submitted successfully";
+                        header("Location: signup.php");
+                        exit();
+                    } else {
+                        $errorMessage = "Failed to send welcome email.";
+                    }
+                } else {
+                    $errorMessage = "Error: " . $sql . "<br>" . $conn->error;
+                }
 
-      if ($conn->query($sql) === TRUE) {
-        $successMessage = "Form submitted successfully";
-      } else {
-        $errorMessage = "Error: " . $sql . "<br>" . $conn->error;
-      }
-
-
-      $conn->close();
+                $conn->close();
+            }
+        } else {
+            $errorMessage = "Referral code does not exist!";
+        }
     }
-  } else {
-    $errorMessage = "Referral code does not exist!";
-  }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
