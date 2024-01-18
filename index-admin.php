@@ -2,26 +2,25 @@
 <html lang="en">
 <?php include 'head.php' ?>
 <?php
-include 'valid_session.php';
-$id=$_SESSION['id'];
+// include 'valid_session.php';
 include 'connection.php';
 $sql = "SELECT *
-        FROM quiz WHERE `userid`=$id";
+        FROM quiz";
 
 $result = $conn->query($sql);
 $sql1 = "SELECT *
         FROM quiz
-        WHERE `attempted`=1 AND `approved`=0 AND `userid`=$id";
+        WHERE `attempted`=1 AND `approved`=0";
 
 $result1 = $conn->query($sql1);
 $sql2 = "SELECT *
 FROM quiz
-WHERE `attempted`=1 AND `approved`=1 AND `userid`=$id";
+WHERE `attempted`=1 AND `approved`=1";
 
 $result2 = $conn->query($sql2);
 $sql3 = "SELECT *
 FROM quiz
-WHERE `attempted`=1 AND `approved`=0 AND `userid`=$id";
+WHERE `attempted`=1 AND `approved`=0";
 
 $result3 = $conn->query($sql3);
 ?>
@@ -31,7 +30,7 @@ $result3 = $conn->query($sql3);
 
 
 
-<!-- <?php include 'valid_session.php' ?> -->
+<?php include 'valid_session.php' ?>
 <body>
 <?php include 'header.php' ?>
   <!-- ======= Header ======= -->

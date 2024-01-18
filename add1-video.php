@@ -1,28 +1,45 @@
 <?php
+include 'connection.php';
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $questionText = $_POST["url"];
-  $quiz = $_POST["quiz"];
+    $errorMessage = "";
+    // Assuming $_SESSION['id'] contains the user's ID
+    // $userId = $_SESSION['id'];
+    $quiz = $_POST['quiz'];
+    // Get the video link from the form
+    $videoLink = $_POST['url'];
 
-  include 'connection.php';
+    // Check if a video link already exists for the given quiz
+    $checkSql = "SELECT COUNT(*) AS link_count FROM video WHERE quiz = $quiz";
+    $checkResult = $conn->query($checkSql);
 
- 
-  $questionText = mysqli_real_escape_string($conn, $questionText);
-  $quiz = mysqli_real_escape_string($conn, $quiz);
+    if ($checkResult) {
+        $linkCount = $checkResult->fetch_assoc()['link_count'];
 
- 
-  $sql = "UPDATE video SET `link` = '$questionText' WHERE `quiz` = '$quiz'";
+        if ($linkCount > 0) {
+            // Entry already exists for the quiz, you can choose to update the existing link or show an error message
+            $errorMessage = "Video link already exists for Quiz $quiz";
+        } else {
+            // Insert the video link into the database
+            $insertSql = "INSERT INTO video (quiz, link) VALUES ($quiz, '$videoLink')";
 
-  if ($conn->query($sql) === TRUE) {
-    $successMessage = "Updated successfully.";
-  } else {
-    $errorMessage = "Error: " . $sql . "<br>" . $conn->error;
-  }
-
-  $conn->close();
+            if ($conn->query($insertSql) === TRUE) {
+                $successMessage = "Video link inserted successfully";
+            } else {
+                $errorMessage = "Error inserting video link: " . $conn->error;
+            }
+        }
+    } else {
+        $errorMessage = "Error checking existing video link: " . $conn->error;
+    }
 }
 
-
+// Close the database connection
+$conn->close();
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <?php include 'head.php' ?>
@@ -32,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <!-- ======= Header ======= -->
   <?php include 'header.php' ?>
   <!-- ======= Sidebar ======= -->
-  <?php include 'sidebar.php' ?>
+  <?php include 'sidebar1.php' ?>
   <main id="main" class="main">
     <div class="pagetitle">
       <h1>Videos</h1>
@@ -66,14 +83,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="row mb-3">
                   <label for="quiz" class="col-sm-2 col-form-label">Quiz:</label>
                   <div class="col-sm-10">
-                    <select class="form-select" id="quiz" name="quiz">
-                    <option >Select Any</option>
+                  <input type="text" class="form-control" id="quiz" name="quiz">
+                    <!-- <option >Select Any</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
                       <option value="5">5</option>
-                    </select>
+                    </select> -->
                   </div>
                 </div>
 

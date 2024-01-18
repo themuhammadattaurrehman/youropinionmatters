@@ -12,9 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_SESSION['id'];
 
     // Update the user table
-    $updateUserSql = "UPDATE user 
-                      SET `$sad` = '1'
-                      WHERE `id` = $id";
+    $updateUserSql = "INSERT INTO quiz (`userid`, `quiz`,`attempted`) 
+                  VALUES ($id, $sad,1)";
+
 
     // Execute the statement for updating the user table
     if ($conn->query($updateUserSql) === TRUE) {

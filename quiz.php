@@ -122,17 +122,17 @@ $conn->close();
   <!-- ======= Header ======= -->
   <?php include 'header.php' ?>
   <!-- ======= Sidebar ======= -->
-  <?php include 'sidebar.php' ?>
+  <?php include 'sidebar1.php' ?>
 
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Profile</h1>
+      <h1>Quiz</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Users</li>
-          <li class="breadcrumb-item active">Profile</li>
+          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+          <!-- <li class="breadcrumb-item">Users</li> -->
+          <li class="breadcrumb-item active">Quiz</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->

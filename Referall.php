@@ -17,7 +17,7 @@ $result = $conn->query($sql);
     <!-- ======= Header ======= -->
     <?php include 'header.php' ?>
     <!-- ======= Sidebar ======= -->
-    <?php include 'sidebar.php' ?>
+    <?php include 'sidebar1.php' ?>
 
 
     <main id="main" class="main">

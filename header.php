@@ -1,13 +1,22 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
-
+<?php if (isset($_SESSION["role"]) && $_SESSION["role"] == "admin") { ?>
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.php" class="logo d-flex align-items-center">
+      <a href="index-admin.php" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">YourOpinionMatters</span>
+        <span class="d-none d-lg-block">Y O M</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
-
+<?php } ?>
+<?php if (isset($_SESSION["role"]) && $_SESSION["role"] == "user") { ?>
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.php" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">Y O M</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+<?php } ?>
     <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">

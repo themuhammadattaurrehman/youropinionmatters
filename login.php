@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["loggedin"] = true;
                 $_SESSION['name']=$adminRow['name'];
                 $_SESSION['id']=$adminRow['id'];
-                header("Location: index.php");
+                header("Location: index-admin.php");
                 exit();
             } else {
                 $errorMessage = "Invalid password";

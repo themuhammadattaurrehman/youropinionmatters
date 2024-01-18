@@ -6,7 +6,7 @@ include 'valid_session.php';
 if (isset($_POST['approve'])) {
     $user_id = $_POST['user_id'];
     $approval = $_POST['approval'];
-    $other = $_POST['other'];
+    $other = $_POST['quiz'];
     // Fetch the email associated with the user
     $getEmailQuery = "SELECT email,e_no FROM user WHERE id = '$user_id'";
     $resultEmail = $conn->query($getEmailQuery);
@@ -17,16 +17,16 @@ if (isset($_POST['approve'])) {
         $email = $rowEmail['email'];
         $no=$rowEmail['e_no'];
         // Update the approval status in the database
-        $updateQuery = "UPDATE user SET `$approval` = '1' WHERE `id` = '$user_id'";
+        $updateQuery = "UPDATE quiz SET `approved` = '1' WHERE `quiz` = '$other' AND `userid` = '$user_id'";
         if ($conn->query($updateQuery) === TRUE) {
             // Send approval email
-            if (mail($email, "Amount Message", "Hi, Your amount of 15rs in account no.".$no)) {
+            // if (mail($email, "Amount Message", "Hi, Your amount of 15rs in account no.".$no)) {
                 $successMessage = "Updated successfully.";
                 header("Location: review.php");
                 exit();
-            } else {
-                $errorMessage = "Failed to send email.";
-            }
+            // } else {
+            //     $errorMessage = "Failed to send email.";
+            // }
         } else {
             $errorMessage = "Error updating approval status: " . $conn->error;
         }
@@ -34,7 +34,7 @@ if (isset($_POST['approve'])) {
 } elseif (isset($_POST['delete'])) {
     $user_id = $_POST['user_id'];
     $other = $_POST['other'];
-    $sql = "UPDATE user SET `$other` = '0' WHERE `id` = '$user_id'";
+    $sql = "UPDATE quiz SET `$other` = '0' WHERE `id` = '$user_id'";
 
     if ($conn->query($sql) === TRUE) {
       $successMessage = "deleted successfully.";
@@ -50,7 +50,7 @@ include 'head.php';
 
 <body>
     <?php include 'header.php' ?>
-    <?php include 'sidebar.php' ?>
+    <?php include 'sidebar1.php' ?>
 
     <main id="main" class="main">
         <div class="pagetitle">
@@ -85,42 +85,57 @@ include 'head.php';
                         </thead>
                         <tbody>
                             <?php
-                            $sql1 = "SELECT * FROM user WHERE `1` = 1 AND `approval1`=0";
-                            $sql2 = "SELECT * FROM user WHERE `2` = 1 AND `approval2`=0";
-                            $sql3 = "SELECT * FROM user WHERE `3` = 1 AND `approval3`=0";
-                            $sql4 = "SELECT * FROM user WHERE `4` = 1 AND `approval4`=0";
-                            $sql5 = "SELECT * FROM user WHERE `5` = 1 AND `approval5`=0";
+                          $sql1 = "SELECT user.e_no, user.user_name, user.id, quiz.quiz
+                          FROM quiz
+                          JOIN user ON quiz.userid = user.id
+                          WHERE quiz.attempted = 1 AND quiz.approved = 0";
+                            // $sql2 = "SELECT user.e_no, user.user_name,user.id
+                            // FROM quiz
+                            // JOIN user ON quiz.userid = user.id
+                            // WHERE quiz.quiz = 2 AND quiz.approved = 0";
+                            // $sql3 = "SELECT user.e_no, user.user_name,user.id
+                            // FROM quiz
+                            // JOIN user ON quiz.userid = user.id
+                            // WHERE quiz.quiz = 3 AND quiz.approved = 0";
+                            // $sql4 = "SELECT user.e_no, user.user_name,user.id
+                            // FROM quiz
+                            // JOIN user ON quiz.userid = user.id
+                            // WHERE quiz.quiz = 4 AND quiz.approved = 0";
+                            // $sql5 = "SELECT user.e_no, user.user_name,user.id
+                            // FROM quiz
+                            // JOIN user ON quiz.userid = user.id
+                            // WHERE quiz.quiz = 5 AND quiz.approved = 0";
                             $i = 1;
-                            $result1 = $conn->query($sql1);
-                            $result2 = $conn->query($sql2);
-                            $result3 = $conn->query($sql3);
-                            $result4 = $conn->query($sql4);
-                            $result5 = $conn->query($sql5);
-                            if (!$result1 || !$result2 || !$result3 || !$result4 || !$result5) {
-                                die("Query failed: " . $conn->error);
-                            }
-                            displayResults($result1, "approval1","1");
-                            displayResults($result2, "approval2","2");
-                            displayResults($result3, "approval3","3");
-                            displayResults($result4, "approval4","4");
-                            displayResults($result5, "approval5","5");
+                            $result = $conn->query($sql1);
+                            // $result2 = $conn->query($sql2);
+                            // $result3 = $conn->query($sql3);
+                            // $result4 = $conn->query($sql4);
+                            // $result5 = $conn->query($sql5);
+                            // if (!$result1 || !$result2 || !$result3 || !$result4 || !$result5) {
+                            //     die("Query failed: " . $conn->error);
+                            // }
+                            // displayResults($result1, "approval1","1");
+                            // displayResults($result2, "approval2","2");
+                            // displayResults($result3, "approval3","3");
+                            // displayResults($result4, "approval4","4");
+                            // displayResults($result5, "approval5","5");
                             $conn->close();
-                            function displayResults($result, $header,$others)
-                            {
+                            // function displayResults($result, $header,$others)
+                            // {
                                 global $i;
                                 if ($result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
                                         echo "<tr>";
                                         echo "<td>" . $i++ . "</td>";
                                         echo "<td>" . $row['user_name'] . "</td>";
-                                        echo "<td>quiz " . $others . "</td>";
+                                        echo "<td>quiz " . $row['quiz'] . "</td>";
                                         echo "<td>" . $row['e_no'] . "</td>";
                                         echo "<td>15</td>";
                                         echo "<td>";
                                         echo "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'>";
                                         echo "<input type='hidden' name='user_id' value='" . $row['id'] . "'>";
-                                        echo "<input type='hidden' name='approval' value='" . $header . "'>";
-                                        echo "<input type='hidden' name='other' value='" . $others . "'>";
+                                        // echo "<input type='hidden' name='approval' value='" . $header . "'>";
+                                        echo "<input type='hidden' name='quiz' value='" . $row['quiz'] . "'>";
                                         echo "<button style='border:none' type='submit' name='approve' value='1'><i class='bi bi-check-lg'></i></button>";
                                         echo "<button style='border:none' type='submit' name='delete' value='1'><i class='bi bi-trash'></i></button>";
                                         echo "</form>";
@@ -128,7 +143,7 @@ include 'head.php';
                                         echo "</tr>";
                                     }
                                 }
-                            }
+                            // }
                             ?>
                         </tbody>
                     </table>

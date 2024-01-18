@@ -50,7 +50,7 @@ include 'head.php';
 
 <body>
     <?php include 'header.php' ?>
-    <?php include 'sidebar.php' ?>
+    <?php include 'sidebar1.php' ?>
 
     <main id="main" class="main">
         <div class="pagetitle">
